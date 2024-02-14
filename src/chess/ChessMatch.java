@@ -15,10 +15,11 @@ public class ChessMatch {
         initialSetup();
     }
 
+    // Coloca as peças no tabuleiro(matriz) fazendo um downcast para ChessPiece
     public ChessPiece[][] getPieces(){
-        ChessPiece[][] mat= new ChessPiece[board.getRows()][board.getColumns()];
+        ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
         for(int i =0; i < board.getRows(); i++){
-            for(int j =0; j < board.getColumns(); j++){
+            for(int j = 0; j < board.getColumns(); j++){
                 mat[i][j] = (ChessPiece) board.piece(i, j);
             }
         }
@@ -26,6 +27,7 @@ public class ChessMatch {
         return mat;
     }
 
+    // Transforma as posições de origem e de destino em ChessPosition, verifica se a posiçãod origem é valida e retorna a peça capturada
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition){
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
@@ -34,6 +36,7 @@ public class ChessMatch {
         return (ChessPiece)capturedPiece;
     }
 
+    // Remove a peça da position de origem e remove a peça que está na posição de destino, pois ela foi capturada. Colaca a peça na posição de origem e retorna a peça capturada
     private Piece makeMove(Position source, Position target) {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
@@ -41,16 +44,22 @@ public class ChessMatch {
 		return capturedPiece;
 	}
 
+    // Verifica a posição da peça
     private void validateSourcePosition(Position position){
         if (!board.thereIsAPiece(position)){
             throw new ChessException("There is no piece on source position");
+        } 
+        if (!board.piece(position).isThereAnyPossibleMove()){
+            throw new ChessException("There is no possible moves for the chosen piece");
         }
     }
 
+    // Coloca uma nova peça usando uma letra e número
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
 
+    // Setup inicial do tabuleiro(Onde cada peça deve começar no jogo)
     private void initialSetup() {
         placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));

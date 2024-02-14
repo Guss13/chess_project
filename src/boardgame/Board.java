@@ -22,6 +22,7 @@ public class Board {
         return columns;
     }
 
+    //Retorna uma peça do tabuleiro a partir de uma linha e coluna fornecida
     public Piece piece(int row, int column){
         if (!positionExists(row, column)){
             throw new BoardException("Position not on the board");
@@ -29,13 +30,15 @@ public class Board {
         return pieces[row][column];
     }
     
+    //Retorna uma peça do tabuleiro a partir de uma position fornecida
     public Piece piece(Position position){
         if (!positionExists(position)){
             throw new BoardException("Position not on the board");
         }
         return pieces[position.getRow()][position.getColumn()];
     }
-
+ 
+    //Testa se existe uma peça no local fornecido, coloca apeça nessa posição e atualiza o atributo position da peça
     public void placePiece(Piece piece, Position position) {
         if (thereIsAPiece(position)){
             throw new BoardException("There is already a piece on position" + position);
@@ -44,6 +47,7 @@ public class Board {
 		piece.position = position;
 	}
 
+    //Remove a peça no local indicado
     public Piece removePiece(Position position) {
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board");

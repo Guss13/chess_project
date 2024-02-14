@@ -23,10 +23,12 @@ public class ChessPosition {
         return row;
     }
 
+    // Pega os atribudos linha e coluna da peça e transforma em um objeto Position
     protected Position toPosition(){
         return new Position(8 - row, column - 'a');
     }
 
+    // Pega um objeto position e transforma em uma ChessPosition(Letra e número)
     protected static ChessPosition fromPosition(Position position){
         return new ChessPosition((char)('a' - position.getColumn()), 8 - position.getRow());
     }
