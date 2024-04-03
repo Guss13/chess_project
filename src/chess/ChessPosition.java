@@ -30,7 +30,7 @@ public class ChessPosition {
 
     // Pega um objeto position e transforma em uma ChessPosition(Letra e número)
     protected static ChessPosition fromPosition(Position position){
-        return new ChessPosition((char)('a' - position.getColumn()), 8 - position.getRow());
+        return new ChessPosition((char)('a' + position.getColumn()), 8 - position.getRow());
     }
 
     @Override
