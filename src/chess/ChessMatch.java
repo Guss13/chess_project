@@ -58,7 +58,7 @@ public class ChessMatch {
         return board.piece(position).possibleMoves();
     }
 
-    // Transforma as posições de origem e de destino em ChessPosition, verifica se a posiçãod origem é valida e retorna a peça capturada
+    // Transforma as posições de origem e de destino em ChessPosition, verifica se a posição de origem é valida e retorna a peça capturada
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition){
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
@@ -98,7 +98,7 @@ public class ChessMatch {
 
     private void undoMove(Position source, Position target, Piece capturedPiece){
         Piece p = board.removePiece(target);
-        board.placePiece(p, target);
+        board.placePiece(p, source);
 
         if(capturedPiece != null){
             board.placePiece(capturedPiece, target);
